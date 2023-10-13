@@ -43,4 +43,13 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation ("androidx.lifecycle:lifecycle-livedata:2.0.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+
+    // add below dependency for using room.
+
+    implementation ("androidx.room:room-runtime:2.2.5")
+
+    annotationProcessor ("androidx.room:room-compiler:2.2.5")
+
+    annotationProcessor ("androidx.lifecycle:lifecycle-compiler:2.2.0")
 }

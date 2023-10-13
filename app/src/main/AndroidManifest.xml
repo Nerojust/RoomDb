@@ -15,10 +15,16 @@
         android:theme="@style/Theme.AppIntegration"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".roomDB.Views.NewEmployeeActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.MainActivity"
+            android:name=".views.MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".views.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".roomDB.Views.RoomActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

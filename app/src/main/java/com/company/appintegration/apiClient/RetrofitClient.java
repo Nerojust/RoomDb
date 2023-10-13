@@ -1,17 +1,19 @@
-package com.company.appintegration.ApiClient;
+package com.company.appintegration.apiClient;
 
 
 
-import com.company.appintegration.NetworkServices.WebService;
+import com.company.appintegration.networkServices.WebService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClientHero {
+public class RetrofitClient {
 
-    private static final String CUSTOMER_DEMAND_BASE_URL = "https://simplifiedcoding.net/demos/";
+    private static final String CUSTOMER_DEMAND_BASE_URL = "https://run.mocky.io/";
+
+    private static Retrofit myRetrofit;
 
    private static Retrofit getRetrofit(){
 
@@ -23,10 +25,12 @@ public class RetrofitClientHero {
 
        OkHttpClient myOkHttpClient = new OkHttpClient.Builder().addInterceptor(myHttpInterceptor).build();
 
-       Retrofit myRetrofit = new Retrofit.Builder().baseUrl(CUSTOMER_DEMAND_BASE_URL)
-               .addConverterFactory(GsonConverterFactory.create()).client(myOkHttpClient).build();
+       if(myRetrofit == null) {
+           myRetrofit = new Retrofit.Builder().baseUrl(CUSTOMER_DEMAND_BASE_URL)
+                   .addConverterFactory(GsonConverterFactory.create()).client(myOkHttpClient).build();
 
 
+       }
        return myRetrofit;
    }
 

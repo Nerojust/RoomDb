@@ -1,4 +1,4 @@
-package com.company.appintegration.Adapters;
+package com.company.appintegration.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,19 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.company.appintegration.Models.Result;
+
 import com.company.appintegration.R;
+import com.company.appintegration.models.Result;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
       Context myContext;
-    private List<Result> myResult;
+    private List<Result> myBillerList;
 
     public UserAdapter(Context myContext, List<Result> myResult) {
         this.myContext = myContext;
-        this.myResult = myResult;
+        this.myBillerList = myResult;
     }
 
     @NonNull
@@ -34,22 +35,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
-        Result myResultModel = myResult.get(position);
+        Result myResultModel = myBillerList.get(position);
 
-        holder.id.setText(" " + myResultModel.getId());
+        holder.id.setText("" + myResultModel.getId());
         holder.name.setText(myResultModel.getName());
-        holder.categoryId.setText(" " + myResultModel.getCategoryId());
+        holder.categoryId.setText("" + myResultModel.getCategoryId());
 
     }
 
     @Override
     public int getItemCount() {
-        if(myResult == null) return 0;
-        return myResult.size();
+        if(myBillerList == null) return 0;
+        return myBillerList.size();
     }
 
     public void setResults(List<Result> myResult){
-        this.myResult = myResult;
+        this.myBillerList = myResult;
         notifyDataSetChanged();
     }
 

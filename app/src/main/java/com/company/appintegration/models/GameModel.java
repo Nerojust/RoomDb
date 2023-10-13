@@ -1,5 +1,5 @@
 
-package com.company.appintegration.Models;
+package com.company.appintegration.models;
 
 
 import com.google.gson.annotations.Expose;

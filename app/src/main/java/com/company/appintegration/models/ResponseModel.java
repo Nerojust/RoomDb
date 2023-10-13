@@ -1,5 +1,5 @@
 
-package com.company.appintegration.Models;
+package com.company.appintegration.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,7 +17,7 @@ public class ResponseModel {
     private List<Result> result;
     @SerializedName("errors")
     @Expose
-    private List<Object> errors;
+    private List<Error> errors;
 
     public Boolean getSuccess() {
         return success;
@@ -35,11 +35,11 @@ public class ResponseModel {
         this.result = result;
     }
 
-    public List<Object> getErrors() {
+    public List<Error> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<Object> errors) {
+    public void setErrors(List<Error> errors) {
         this.errors = errors;
     }
 

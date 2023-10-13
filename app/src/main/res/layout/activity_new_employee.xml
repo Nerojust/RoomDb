@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".roomDB.Views.NewEmployeeActivity">
+
+    <TextView
+        android:id="@+id/tv_employee_full_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity = "center"
+        android:text="Welcome"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+
+    <!--edit text for our course name-->
+    <EditText
+        android:id="@+id/et_full_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter Full Name" />
+
+    <!--edit text for our course description-->
+    <EditText
+        android:id="@+id/et_job_Description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter Job Description" />
+
+    <!--edit text for course description-->
+    <EditText
+        android:id="@+id/et_year_of_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:inputType="number"
+        android:hint="Enter Year Of Entry" />
+
+    <!--button for saving data to room database-->
+    <Button
+        android:id="@+id/btn_save_employee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="Save Employee Data"
+        android:textAllCaps="false" />
+
+</LinearLayout>

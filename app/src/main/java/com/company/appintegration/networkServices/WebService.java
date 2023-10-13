@@ -1,8 +1,8 @@
-package com.company.appintegration.NetworkServices;
+package com.company.appintegration.networkServices;
 
 
-import com.company.appintegration.Models.GameModel;
-import com.company.appintegration.Models.ResponseModel;
+import com.company.appintegration.models.GameModel;
+import com.company.appintegration.models.ResponseModel;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface WebService {
 
 
     @GET("/v3/44389778-349f-4b86-afe8-6a861cd48f46")
-    Call<ResponseModel> getUser(@Query("mocky-delay") String value);
+    Call<ResponseModel> getBillers(@Query("mocky-delay") String value);
 
     @GET("marvel")
     Call<List<GameModel>> getSuperHeros();

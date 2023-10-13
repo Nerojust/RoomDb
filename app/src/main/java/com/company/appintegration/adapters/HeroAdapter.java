@@ -1,4 +1,4 @@
-package com.company.appintegration.Adapters;
+package com.company.appintegration.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.company.appintegration.Models.GameModel;
+import com.company.appintegration.models.GameModel;
 import com.company.appintegration.R;
 import com.squareup.picasso.Picasso;
 
