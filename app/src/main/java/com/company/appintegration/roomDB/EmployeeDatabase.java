@@ -1,57 +1,27 @@
 package com.company.appintegration.roomDB;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.company.appintegration.roomDB.EmployeeDAO;
+import com.company.appintegration.roomDB.EmployeeModel;
 
-@Database(entities = {EmployeeModel.class}, version = 1)
+@Database(entities = {EmployeeModel.class}, version = 1, exportSchema = false)
 public abstract class EmployeeDatabase extends RoomDatabase {
 
-    // below line is to create instance
-    // for our database class.
-    private static EmployeeDatabase instance;
-
-    // below line is to create
-    // abstract variable for dao.
     public abstract EmployeeDAO getEmployeeDAO();
 
-    public static synchronized EmployeeDatabase getInstance(Context myContext) {
+    private static EmployeeDatabase instance;
 
+    public static synchronized EmployeeDatabase getInstance(Context context) {
         if (instance == null) {
-            instance = Room.databaseBuilder(myContext.getApplicationContext(),
-                            EmployeeDatabase.class, "employee_database").fallbackToDestructiveMigration().
-                    addCallback(myCallback).build();
+            instance = Room.databaseBuilder(context.getApplicationContext(), EmployeeDatabase.class, "employee_database")
+                    .fallbackToDestructiveMigration()
+                    .build();
         }
         return instance;
     }
-
-    private static RoomDatabase.Callback myCallback = new Callback() {
-        final EmployeeDAO myEmployeeDAO = instance.getEmployeeDAO();
-
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-
-            ExecutorService myExecutor = Executors.newSingleThreadExecutor();
-
-            myExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    myEmployeeDAO.insert(new EmployeeModel("Name", "Job", "year"));
-
-                }
-            });
-
-        }
-    };
 }
-
-

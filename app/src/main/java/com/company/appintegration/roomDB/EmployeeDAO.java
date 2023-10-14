@@ -17,7 +17,6 @@ public interface EmployeeDAO {
     @Update
     void update(EmployeeModel myEmployeeModel);
 
-
     @Delete
     void delete(EmployeeModel myEmployeeModel);
 

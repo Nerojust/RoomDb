@@ -47,9 +47,9 @@ dependencies {
 
     // add below dependency for using room.
 
-    implementation ("androidx.room:room-runtime:2.2.5")
+    implementation ("androidx.room:room-runtime:2.5.2")
 
-    annotationProcessor ("androidx.room:room-compiler:2.2.5")
+    annotationProcessor ("androidx.room:room-compiler:2.5.2")
 
-    annotationProcessor ("androidx.lifecycle:lifecycle-compiler:2.2.0")
+    annotationProcessor ("androidx.lifecycle:lifecycle-compiler:2.6.2")
 }

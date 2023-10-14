@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.company.appintegration.R;
-import com.company.appintegration.roomDB.EmployeeAdapter;
 import com.company.appintegration.roomDB.EmployeeModel;
 
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.List;
 public class EmployAdapter extends RecyclerView.Adapter<EmployAdapter.ViewHolder> {
 
     private List<EmployeeModel> myEmployeeModel;
+
     @NonNull
     @Override
     public EmployAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,12 +36,12 @@ public class EmployAdapter extends RecyclerView.Adapter<EmployAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        if(myEmployeeModel == null)
+        if (myEmployeeModel == null)
             return 0;
         return myEmployeeModel.size();
     }
 
-    public void setMyEmployeeModel(List<EmployeeModel> myEmployeeModel){
+    public void setMyEmployeeModel(List<EmployeeModel> myEmployeeModel) {
         this.myEmployeeModel = myEmployeeModel;
         notifyDataSetChanged();
     }
@@ -49,6 +49,7 @@ public class EmployAdapter extends RecyclerView.Adapter<EmployAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView employeeFullName, jobDescription, yearOfEntry;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

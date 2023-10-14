@@ -14,18 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.company.appintegration.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeAdapter extends ListAdapter<EmployeeModel, EmployeeAdapter.ViewHolder> {
-
-    // creating a variable for on item click listener.
-    private OnItemClickListener listener;
-    private ArrayList<EmployeeModel> myEmployeeModel;
-
-    // creating a constructor class for our adapter class.
-    public EmployeeAdapter(ArrayList<EmployeeModel> myEmployeeModel, Context context) {
-        super(DIFF_CALLBACK);
-        this.myEmployeeModel = myEmployeeModel;
-    }
 
     // creating a call back for item of recycler view.
     private static final DiffUtil.ItemCallback<EmployeeModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<EmployeeModel>() {
@@ -42,6 +33,15 @@ public class EmployeeAdapter extends ListAdapter<EmployeeModel, EmployeeAdapter.
                     oldItem.getYearOfEntry().equals(newItem.getYearOfEntry());
         }
     };
+    // creating a variable for on item click listener.
+    private OnItemClickListener listener;
+    private List<EmployeeModel> myEmployeeModel;
+
+    // creating a constructor class for our adapter class.
+    public EmployeeAdapter(List<EmployeeModel> myEmployeeModel, Context context) {
+        super(DIFF_CALLBACK);
+        this.myEmployeeModel = myEmployeeModel;
+    }
 
     @NonNull
     @Override
@@ -72,21 +72,30 @@ public class EmployeeAdapter extends ListAdapter<EmployeeModel, EmployeeAdapter.
 
     // creating a method to get course modal for a specific position.
     public EmployeeModel getEmployeeAt(int position) {
-        return getItem(position);
+        return myEmployeeModel.get(position);
     }
 
     @Override
     public int getItemCount() {
         // returning the size of array list.
-        if(myEmployeeModel == null)
+        if (myEmployeeModel == null)
             return 0;
         return myEmployeeModel.size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(EmployeeModel model);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // view holder class to create a variable for each view.
         TextView employeeFullName, jobDescription, yearOfEntry;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -107,13 +116,6 @@ public class EmployeeAdapter extends ListAdapter<EmployeeModel, EmployeeAdapter.
                 }
             });
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(EmployeeModel model);
-    }
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
     }
 
 }

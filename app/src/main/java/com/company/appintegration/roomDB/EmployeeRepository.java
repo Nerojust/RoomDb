@@ -10,142 +10,42 @@ import java.util.concurrent.Executors;
 
 public class EmployeeRepository {
 
-    private final EmployeeDAO myDao;
-
-    private final LiveData<List<EmployeeModel>> myEmployeeModelLiveData;
-
-    ExecutorService myExecutor = Executors.newSingleThreadExecutor();
+    private final EmployeeDAO employeeDAO;
+    private final LiveData<List<EmployeeModel>> allEmployees;
+    private final ExecutorService executorService;
 
     public EmployeeRepository(Application application) {
-        //  call the note database class and create an instance withe the application as context
-        EmployeeDatabase myEmployeeDatabase = EmployeeDatabase.getInstance(application);
-        myDao = myEmployeeDatabase.getEmployeeDAO();
-        //        call the model instance to the Model class method for livedata
-        myEmployeeModelLiveData = myDao.getAllEmployees();
+        // Initialize the Room database and DAO.
+        EmployeeDatabase employeeDatabase = EmployeeDatabase.getInstance(application);
+        employeeDAO = employeeDatabase.getEmployeeDAO();
+
+        // Initialize LiveData for all employees.
+        allEmployees = employeeDAO.getAllEmployees();
+
+        // Initialize an ExecutorService for database operations.
+        executorService = Executors.newSingleThreadExecutor();
     }
 
-    public void insert(EmployeeModel myEmployeeModel) {
-
-        myExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-
-                myDao.insert(myEmployeeModel);
-            }
-        });
+    // Expose LiveData to observe all employees.
+    public LiveData<List<EmployeeModel>> getAllEmployees() {
+        return allEmployees;
     }
 
-    public void update(EmployeeModel myEmployeeModel) {
-        myExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                myDao.update(myEmployeeModel);
-            }
-        });
+    // Perform database operations on a background thread.
+
+    public void insert(EmployeeModel employee) {
+        executorService.execute(() -> employeeDAO.insert(employee));
     }
 
-    public void delete(EmployeeModel myEmployeeModel) {
-        myExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                myDao.delete(myEmployeeModel);
-            }
-        });
+    public void update(EmployeeModel employee) {
+        executorService.execute(() -> employeeDAO.update(employee));
+    }
+
+    public void delete(EmployeeModel employee) {
+        executorService.execute(() -> employeeDAO.delete(employee));
     }
 
     public void deleteAll() {
-        myExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                myDao.deleteAll();
-            }
-        });
+        executorService.execute(() -> employeeDAO.deleteAll());
     }
-
-    public LiveData<List<EmployeeModel>> getMyEmployeeModelLiveData(){
-        return myEmployeeModelLiveData;
-    }
-
 }
-
-
-
-
-//    public void insertEmployee(EmployeeModel myEmployeeModel) {
-//        new InsertEmployeeAsyncTask(dao).execute(myEmployeeModel);
-//    }
-//
-//    // creating a method to update data in database.
-//    public void updateEmployee(EmployeeModel myEmployeeModel) {
-//        new UpdateEmployeeAsyncTask(dao).execute(myEmployeeModel);
-//    }
-//
-//    // creating a method to delete the data in our database.
-//    public void deleteEmployee(EmployeeModel myEmployeeModel) {
-//        new DeleteEmployeeAsyncTask(dao).execute(myEmployeeModel);
-//    }
-//
-//    // below is the method to delete all the courses.
-//    public void deleteAllCourses() {
-//        new DeleteAllEmployeeAsyncTask(dao).execute();
-//    }
-//
-//    // below method is to read all the courses.
-//    public LiveData<List<EmployeeModel>> getAllEmployee() {
-//        return myEmployeeModelLiveData;
-//    }
-//
-//private static class InsertEmployeeAsyncTask extends AsyncTask<EmployeeModel, Void, Void> {
-//    private EmployeeDAO myEmployeeDao;
-//
-//    public InsertEmployeeAsyncTask(EmployeeDAO myEmployeeDAO) {
-//        this.myEmployeeDao = myEmployeeDAO;
-//    }
-//    @Override
-//    protected Void doInBackground(EmployeeModel... employeeModels) {
-//        myEmployeeDao.insert(employeeModels[0]);
-//        return null;
-//    }
-//}
-//
-//private static class UpdateEmployeeAsyncTask extends AsyncTask<EmployeeModel, Void, Void> {
-//    private EmployeeDAO myEmployeeDao;
-//
-//    public UpdateEmployeeAsyncTask(EmployeeDAO myEmployeeDAO) {
-//        this.myEmployeeDao = myEmployeeDAO;
-//    }
-//
-//    @Override
-//    protected Void doInBackground(EmployeeModel... employeeModels) {
-//        myEmployeeDao.update(employeeModels[0]);
-//        return null;
-//    }
-//}
-//
-//private static class DeleteEmployeeAsyncTask extends AsyncTask<EmployeeModel, Void, Void> {
-//    private EmployeeDAO myEmployeeDao;
-//
-//    public DeleteEmployeeAsyncTask(EmployeeDAO myEmployeeDAO) {
-//        this.myEmployeeDao = myEmployeeDAO;
-//    }
-//
-//    @Override
-//    protected Void doInBackground(EmployeeModel... employeeModels) {
-//        myEmployeeDao.delete(employeeModels[0]);
-//        return null;
-//    }
-//}
-//
-//private static class DeleteAllEmployeeAsyncTask extends AsyncTask<Void, Void, Void> {
-//    private EmployeeDAO myEmployeeDao;
-//
-//    public DeleteAllEmployeeAsyncTask(EmployeeDAO myEmployeeDAO) {
-//        this.myEmployeeDao = myEmployeeDAO;
-//    }
-//    @Override
-//    protected Void doInBackground(Void... voids) {
-//        myEmployeeDao.deleteAll();
-//        return null;
-//    }
-//}
-//}
